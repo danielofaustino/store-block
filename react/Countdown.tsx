@@ -2,6 +2,18 @@ import React, { useState } from 'react'
 import { TimeSplit } from './typings/global'
 import { tick } from './utils/time'
 import { useCssHandles } from 'vtex.css-handles'
+import { useQuery } from 'react-apollo'
+import useProduct from 'vtex.product-context/useProduct'
+import productReleaseDate from './queries/productReleaseDate.graphql'
+
+
+const { product: { linkText } } = useProduct()
+const { data, loading, error } = useQuery(productReleaseDate, {
+  variables: {
+    slug: linkText
+  },   ssr: false
+ })
+
 
 
 interface CountdownProps { 
